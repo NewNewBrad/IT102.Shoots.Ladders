@@ -4,8 +4,8 @@
 <script type="text/javascript">
 
 // Global variables.
-//var redScore = 0;
-//var blueScore = 0;
+var redScore = 0;
+var blueScore = 0;
 
 //Die rolling mechanism. Alert on doubles Possible Wildcard() event.
 var rollDie = function rollDie(){
@@ -32,6 +32,36 @@ var takeTurn = function takeTurn(){
 	document.getElementById("lucky").innerHTML = "Red player: " + redTurn();
 	document.getElementById("slippery").innerHTML = "Blue player: " + blueTurn();
 }
+
+var wildCard = function wildCard(){
+	var i = Math.ceil(Math.random()*100);
+	console.log(i)
+	if(i < 20){
+		redScore -= 10 + redScore;
+		blueScore -= 10 + blueScore;
+		alert("Both players lose 10pts!")
+	}
+	if(i < 40 && i >= 20){
+		redScore += 10 + redScore;
+		blueScore += 10 + blueScore;
+		alert("Both players gain 10pts!")
+	}
+	if(i < 60 && i >= 40){
+		redScore += 10 + redScore;
+		alert("Red player gains 10pts!")
+	}
+	if(i < 80 && i >= 60){
+		blueScore += 10 + blueScore;
+		alert("Blue player gains 10pts!")
+	}
+	if(i < 100 && i >= 80){
+		alert("Not too wild this time! This turn is normal.")
+		blueTurn()
+		redTurn()
+	}
+	document.getElementById("lucky").innerHTML = "Red player: " + redScore;
+	document.getElementById("slippery").innerHTML = "Blue player: " + blueScore;	
+}
 </script>
 
 </head>
@@ -43,6 +73,8 @@ var takeTurn = function takeTurn(){
 
 <p id="lucky">Red Player</p>
 <p id="slippery">Blue Player</p>
+
+<button type="button" onclick="wildCard()">Wildcard!</button>
 
 </body>
 </html>
