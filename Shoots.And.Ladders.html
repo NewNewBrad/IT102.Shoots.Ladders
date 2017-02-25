@@ -1,0 +1,48 @@
+<!DOCTYPE>
+<html>
+<head lang="en">
+<script type="text/javascript">
+
+// Global variables.
+//var redScore = 0;
+//var blueScore = 0;
+
+//Die rolling mechanism. Alert on doubles Possible Wildcard() event.
+var rollDie = function rollDie(){
+	var die1 = Math.ceil(Math.random()*6);
+	var die2 = Math.ceil(Math.random()*6);
+	var lastRoll = die1 + die2;
+	return lastRoll
+}
+
+//Single turn for red
+var redTurn = (function () {
+	var redScore = 0;
+	return function () {return redScore += rollDie();}
+})();
+
+//Single turn for blue
+var blueTurn =  (function () {
+	var blueScore = 0;
+	return function () {return blueScore += rollDie();}
+})();
+
+//Runs both players turns, displays the totals
+var takeTurn = function takeTurn(){
+	document.getElementById("lucky").innerHTML = "Red player: " + redTurn();
+	document.getElementById("slippery").innerHTML = "Blue player: " + blueTurn();
+}
+</script>
+
+</head>
+<body>
+
+<h2> Shoots and Ladders</h2>
+
+<button type="button" onclick="takeTurn()">Roll!</button>
+
+<p id="lucky">Red Player</p>
+<p id="slippery">Blue Player</p>
+
+</body>
+</html>
